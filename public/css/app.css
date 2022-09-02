@@ -10966,3 +10966,12 @@ a.text-dark:focus {
   }
 }
 
+header {
+  background-color: lightcoral;
+  padding: 10px;
+}
+
+header a {
+  font-size: 30px;
+}
+
