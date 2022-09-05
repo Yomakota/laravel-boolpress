@@ -28,7 +28,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
+                    document.getElementById('logout-form').submit();">
                     Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -42,6 +42,11 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar py-4">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
+                        <li>
+                            <button class="btn btn-outline-primary m-3">
+                                <a href="/">Public Home</a>
+                            </button>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('admin.home') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

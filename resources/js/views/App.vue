@@ -1,18 +1,16 @@
 <template>
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-6">
-        <a href="/admin" class="btn btn-outline-primary">Private session</a>
-      </div>
-      <div class="col-6">
-        <h1>Public Home</h1>
-      </div>
-    </div>
-  </div>
+  <HeaderPage />
 </template>
 
 <script>
+import HeaderPage from "../components/HeaderPage.vue";
+export default {
+  name: "App",
+  components: {
+    HeaderPage,
+  },
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 </style>

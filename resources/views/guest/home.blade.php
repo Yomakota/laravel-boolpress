@@ -10,9 +10,8 @@
 </head>
 
 <body>
-    <header>
-        <div id="root"></div>
-    </header>
+    <div id="root"></div>
+
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
