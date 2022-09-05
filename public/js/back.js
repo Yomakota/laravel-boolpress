@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-alert('using js for backend');
+// alert('using js for backend');
 
 /***/ }),
 
