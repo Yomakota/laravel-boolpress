@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -31,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -42,7 +43,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->getValidate());
+        $form_data = $request->all();
+
+        $new_post = new Post();
+        $new_post->fill($form_data);
+
+        $new_post->slug = $this->getSlug($new_post->title);
+
+        $new_post->save();
+
+        return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
     /**
@@ -92,5 +103,34 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function getSlug($title)
+    {
+        //assegnare lo slug
+        $slug_to_save = Str::slug($title, '-');
+        $slug_base = $slug_to_save;
+
+        //verifico se presente nel db
+        $existing_slug_post = Post::where('slug', '=', $slug_to_save)->first();
+
+        //aggiungo un counter fino a quando non trovo un slug libero
+        $counter = 1;
+        while ($existing_slug_post) {
+            $slug_to_save = $slug_base . '-' . $counter;
+
+            //controllo se presente nel db
+            $existing_slug_post = Post::where('slug', '=', $slug_to_save)->first();
+            $counter++;
+        }
+        return $slug_to_save;
+    }
+
+    protected function getValidate()
+    {
+        return [
+            'title' => 'required|max:255',
+            'content' => 'required|max:60000'
+        ];
     }
 }
