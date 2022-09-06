@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
-// use Carbon\Carbon;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -72,8 +72,14 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+
+        $time_now = Carbon::now();
+        $created_on = $post->created_at->diffInDays($time_now);
+
+        // dd($created_on);
         $data = [
-            'post' => $post
+            'post' => $post,
+            'created_on' => $created_on
         ];
         return view('admin.posts.show', $data);
     }
