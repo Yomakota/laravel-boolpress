@@ -8,7 +8,7 @@
         </div>
     @endif
 
-    <div class="row row-cols-3">
+    <div class="row row-cols-2">
         @foreach ($posts as $post)
             {{-- Single-post --}}
             <div class="col mt-4">

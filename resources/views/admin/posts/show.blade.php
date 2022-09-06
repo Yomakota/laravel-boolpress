@@ -6,8 +6,8 @@
         <div class="row post-details">
             <div class="col-12 info">
                 <div class="border-bottom border-top border-dark py-3">
-                    <div> <strong> Created at: </strong>{{ $post->created_at }}</div>
-                    <div> <strong> Updated at: </strong>{{ $post->updated_at }}</div>
+                    <div> <strong> Created at: </strong>{{ $post->created_at->format('j F Y') }}</div>
+                    <div> <strong> Updated at: </strong>{{ $post->updated_at->format('j F Y') }}</div>
                     <div> <strong> Slug: </strong>{{ $post->slug }}</div>
                 </div>
             </div>
