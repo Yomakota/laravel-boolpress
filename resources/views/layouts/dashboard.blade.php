@@ -43,8 +43,8 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li>
-                            <button class="btn btn-outline-primary m-3">
-                                <a href="/">Public Home</a>
+                            <button class="btn btn-primary m-3">
+                                <a class="text-white" href="/">Public Home</a>
                             </button>
                         </li>
                         <li class="nav-item">

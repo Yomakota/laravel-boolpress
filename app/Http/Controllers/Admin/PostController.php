@@ -14,12 +14,14 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::all();
-
+        $page_data = $request->all();
+        $deleted = isset($page_data['deleted']) ? $page_data['deleted'] : null;
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
+            'deleted' => $deleted
         ];
 
         return view('admin.posts.index', $data);
@@ -43,9 +45,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->getValidate());
+        //validiamo i campi del form
+        $request->validate($this->getValidation());
+
+        // se non ci sono errori li salvo in form_data
         $form_data = $request->all();
 
+        //creo un nuovo Post
         $new_post = new Post();
         $new_post->fill($form_data);
 
@@ -64,7 +70,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $data = [
             'post' => $post
         ];
@@ -79,7 +85,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $data = [
+            'post' => $post
+        ];
+        return view('admin.posts.edit', $data);
     }
 
     /**
@@ -91,7 +102,27 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //verifico i dati
+        $request->validate($this->getValidation());
+
+        //prendo i data dal form edit
+        $form_data = $request->all();
+
+        //prendo post da aggiornare
+        $post_to_update = Post::findOrFail($id);
+
+        // aggiungo all'array dei data lo slug che non è nel form
+        // si genera lo slug solo se diverso da quello vecchio
+        if ($form_data['title'] !== $post_to_update->title) {
+            $form_data['slug'] = $this->getSlug($form_data['title']);
+        } else {
+            $form_data['slug'] = $post_to_update->slug;
+        }
+
+        //aggiorno il post
+        $post_to_update->update($form_data);
+
+        return redirect()->route('admin.posts.show', ['post' => $post_to_update->id]);
     }
 
     /**
@@ -102,19 +133,22 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post_to_delete = Post::findOrFail($id);
+        $post_to_delete->delete();
+
+        return redirect()->route('admin.posts.index', ['deleted' => 'yes']);
     }
 
     protected function getSlug($title)
     {
-        //assegnare lo slug
+        //creamo lo slug
         $slug_to_save = Str::slug($title, '-');
         $slug_base = $slug_to_save;
 
         //verifico se presente nel db
         $existing_slug_post = Post::where('slug', '=', $slug_to_save)->first();
 
-        //aggiungo un counter fino a quando non trovo un slug libero
+        //aggiungo un counter fino a quando non trovo un slug libero ossia finchè la condizione del ciclo diventa null e quindi non presente
         $counter = 1;
         while ($existing_slug_post) {
             $slug_to_save = $slug_base . '-' . $counter;
@@ -126,7 +160,7 @@ class PostController extends Controller
         return $slug_to_save;
     }
 
-    protected function getValidate()
+    protected function getValidation()
     {
         return [
             'title' => 'required|max:255',
