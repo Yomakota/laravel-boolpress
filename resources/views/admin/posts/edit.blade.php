@@ -14,6 +14,21 @@
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <div class="mb-3">
+            <label for="category_id">Category</label>
+            <select class="form-select" id="category_id" name="category_id">
+                <option value="">None</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        @error('title')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
             <label for="content" class="form-label"><strong> Content </strong></label>
             <textarea class="form-control" id="content" name="content" rows="6">{{ old('content', $post->content) }}</textarea>
         </div>
