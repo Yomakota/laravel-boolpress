@@ -73,6 +73,8 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
+        // dd($post->category); per vedere relazione con category
+
         $time_now = Carbon::now();
         $created_on = $post->created_at->diffInDays($time_now);
 
