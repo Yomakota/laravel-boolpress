@@ -3,11 +3,25 @@
 @section('content')
     <h1>Create a new Post</h1>
 
+    {{-- {{ dd($categories) }} --}}
+
     <form action=" {{ route('admin.posts.store') }}" method="post">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+        </div>
+        @error('title')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <div class="mb-3">
+            <label for="category_id">Category</label>
+            <select class="form-select" id="category_id" name="category_id">
+                <option value="">None</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
         @error('title')
             <div class="alert alert-danger">{{ $message }}</div>
