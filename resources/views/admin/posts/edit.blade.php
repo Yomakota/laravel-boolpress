@@ -3,6 +3,16 @@
 @section('content')
     <h1>Edit this Post</h1>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action=" {{ route('admin.posts.update', ['post' => $post->id]) }}" method="post">
         @csrf
         @method('PUT')
@@ -10,9 +20,7 @@
             <label for="title" class="form-label"><strong> Title </strong></label>
             <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
         </div>
-        @error('title')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+
         <div class="mb-3">
             <label for="category_id">Category</label>
             <select class="form-select" id="category_id" name="category_id">
@@ -25,16 +33,37 @@
                 @endforeach
             </select>
         </div>
-        @error('category_id')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+
+        <div class="mb-3">
+            <h5>Tags</h5>
+            @foreach ($tags as $tag)
+                @if ($errors->any())
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{ $tag->id }}"
+                            id="tag-{{ $tag->id }}" name="tags[]"
+                            {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="tag-{{ $tag->id }}">
+                            {{ $tag->name }}
+                        </label>
+                    </div>
+                @else
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{ $tag->id }}"
+                            id="tag-{{ $tag->id }}" name="tags[]"
+                            {{ $post->tags->contains($tag) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="tag-{{ $tag->id }}">
+                            {{ $tag->name }}
+                        </label>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+
         <div class="mb-3">
             <label for="content" class="form-label"><strong> Content </strong></label>
             <textarea class="form-control" id="content" name="content" rows="6">{{ old('content', $post->content) }}</textarea>
         </div>
-        @error('content')
-            <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+
         <div class="actions-form">
             <input type="submit" class="btn btn-primary" value="Save Changes">
             <a class="btn btn-primary mx-3" href="{{ route('admin.posts.show', ['post' => $post->id]) }}"> Back </a>
