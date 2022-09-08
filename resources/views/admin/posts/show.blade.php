@@ -9,6 +9,15 @@
                     <div> <strong> Slug: </strong>{{ $post->slug }}</div>
                     <div><strong>Category:</strong> {{ $post->category ? $post->category->name : 'none' }} </div>
 
+                    <div>
+                        <strong>Tags:</strong>
+                        @forelse ($post->tags as $tag)
+                            {{ $tag->name }}{{ !$loop->last ? ',' : '' }}
+                        @empty
+                            none
+                        @endforelse
+                    </div>
+
                     <div> <strong> Created at: </strong>{{ $post->created_at->format('j F Y') }}</div>
                     @if ($created_on > 0)
                         <div> <strong> Created on: </strong>{{ $created_on }} day{{ $created_on > 1 ? 's' : '' }} ago
