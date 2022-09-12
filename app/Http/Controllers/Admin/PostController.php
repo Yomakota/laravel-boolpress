@@ -90,11 +90,13 @@ class PostController extends Controller
 
         $time_now = Carbon::now();
         $created_on = $post->created_at->diffInDays($time_now);
+        $updated_mins = $post->updated_at->diffInMinutes($time_now);
 
         // dd($created_on);
         $data = [
             'post' => $post,
-            'created_on' => $created_on
+            'created_on' => $created_on,
+            'updated_mins' => $updated_mins
         ];
         return view('admin.posts.show', $data);
     }

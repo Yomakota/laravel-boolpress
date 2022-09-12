@@ -1,9 +1,9 @@
 <template>
   <section>
+    <h1 class="bg-info text-center p-3">Our Posts</h1>
     <div class="container mt-4">
-      <h1 class="text-center">Our Posts</h1>
       <div class="row row-cols-3">
-        <div v-for="post in posts" :key="post.id" class="col mt-3">
+        <div class="col mt-3" v-for="post in posts" :key="post.id">
           <div class="card h-100">
             <!-- <img src="" class="card-img-top" alt="" /> -->
             <div class="card-body">
@@ -17,28 +17,48 @@
         </div>
       </div>
 
-      <nav class="mt-4">
-        <ul class="pagination">
-          <li class="page-item" :class="{ disabled: currentPage == 1 }">
-            <a
-              class="page-link"
-              href="#"
-              @click.prevent="getPosts(currentPage - 1)"
-            >
-              Previous
-            </a>
-          </li>
-          <li class="page-item" :class="{ disabled: currentPage == lastPage }">
-            <a
-              class="page-link"
-              href="#"
-              @click.prevent="getPosts(currentPage + 1)"
-            >
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <div class="row">
+        <div class="col-12">
+          <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+              <!--Previous btn -->
+              <li class="page-item" :class="{ disabled: currentPage == 1 }">
+                <a
+                  class="page-link"
+                  href="#"
+                  @click.prevent="getPosts(currentPage - 1)"
+                >
+                  Previous
+                </a>
+              </li>
+              <!-- Page numbers btn -->
+              <li
+                v-for="pageNum in lastPage"
+                :key="pageNum"
+                class="page-item"
+                :class="{ active: pageNum == currentPage }"
+              >
+                <a @click="getPosts(pageNum)" class="page-link" href="#">
+                  {{ pageNum }}
+                </a>
+              </li>
+              <!--Next btn -->
+              <li
+                class="page-item"
+                :class="{ disabled: currentPage == lastPage }"
+              >
+                <a
+                  class="page-link"
+                  href="#"
+                  @click.prevent="getPosts(currentPage + 1)"
+                >
+                  Next
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   </section>
 </template>

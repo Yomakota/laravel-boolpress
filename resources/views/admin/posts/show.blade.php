@@ -6,7 +6,7 @@
         <div class="row post-details">
             <div class="col-12 info">
                 <div class="border-bottom border-top border-dark py-3">
-                    <div> <strong> Slug: </strong>{{ $post->slug }}</div>
+                    <div> <strong>Slug:</strong>{{ $post->slug }}</div>
                     <div><strong>Category:</strong> {{ $post->category ? $post->category->name : 'none' }} </div>
 
                     <div>
@@ -26,6 +26,12 @@
                         <div><strong> Created on: </strong>Today</div>
                     @endif
                     <div> <strong> Updated at: </strong>{{ $post->updated_at->format('j F Y') }}</div>
+                    @if ($updated_mins > 60)
+                        <div><strong>Update on:</strong> {{ $post->updated_at->format('j F Y H:i:s') }}</div>
+                    @else
+                        <div><strong>Update on:</strong> {{ $updated_mins }} min{{ $updated_mins > 1 ? 's' : '' }} ago
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="col-12 content">

@@ -43,9 +43,9 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li>
-                            <button class="btn btn-primary m-3">
+                            <div class="btn btn-primary m-3">
                                 <a class="text-white" href="/">Public Home</a>
-                            </button>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('admin.home') }}">
