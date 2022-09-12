@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="container">
-      <h1>Our Posts</h1>
+    <div class="container mt-4">
+      <h1 class="text-center">Our Posts</h1>
       <div class="row row-cols-3">
         <div v-for="post in posts" :key="post.id" class="col mt-3">
           <div class="card h-100">
@@ -16,6 +16,29 @@
           </div>
         </div>
       </div>
+
+      <nav class="mt-4">
+        <ul class="pagination">
+          <li class="page-item" :class="{ disabled: currentPage == 1 }">
+            <a
+              class="page-link"
+              href="#"
+              @click.prevent="getPosts(currentPage - 1)"
+            >
+              Previous
+            </a>
+          </li>
+          <li class="page-item" :class="{ disabled: currentPage == lastPage }">
+            <a
+              class="page-link"
+              href="#"
+              @click.prevent="getPosts(currentPage + 1)"
+            >
+              Next
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </section>
 </template>
@@ -26,6 +49,8 @@ export default {
   data() {
     return {
       posts: [],
+      currentPage: 1,
+      lastPage: null,
     };
   },
   methods: {
@@ -34,14 +59,22 @@ export default {
         return text.slice(0, 75) + "...";
       }
     },
-    getPosts() {
-      axios.get("http://127.0.0.1:8000/api/posts").then((response) => {
-        this.posts = response.data.results;
-      });
+    getPosts(pageNum) {
+      axios
+        .get("/api/posts", {
+          params: {
+            page: pageNum,
+          },
+        })
+        .then((response) => {
+          this.posts = response.data.results.data;
+          this.currentPage = response.data.results.current_page;
+          this.lastPage = response.data.results.last_page;
+        });
     },
   },
   mounted() {
-    this.getPosts();
+    this.getPosts(1);
   },
 };
 </script>
