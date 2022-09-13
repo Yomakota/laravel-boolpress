@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="bg-info text-center p-3">{{ title }}</h2>
+    <h3 class="bg-info text-center p-3">{{ title }}</h3>
     <div class="container mt-4">
       <div class="row row-cols-3">
         <div class="col mt-3" v-for="post in posts" :key="post.id">

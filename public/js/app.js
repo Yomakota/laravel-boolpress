@@ -2119,7 +2119,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("section", [_c("h2", {
+  return _c("section", [_c("h3", {
     staticClass: "bg-info text-center p-3"
   }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("div", {
     staticClass: "container mt-4"
@@ -2230,7 +2230,7 @@ var staticRenderFns = [function () {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v("About")])]);
+  }, [_c("h2", [_vm._v("About")])]);
 }];
 render._withStripped = true;
 
@@ -2261,7 +2261,7 @@ var staticRenderFns = [function () {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v("Blog")])]);
+  }, [_c("h2", [_vm._v("Blog")])]);
 }];
 render._withStripped = true;
 
@@ -2292,7 +2292,7 @@ var staticRenderFns = [function () {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v("Home")])]);
+  }, [_c("h2", [_vm._v("Home")])]);
 }];
 render._withStripped = true;
 
