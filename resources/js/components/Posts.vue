@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1 class="bg-info text-center p-3">Our Posts</h1>
+    <h2 class="bg-info text-center p-3">{{ title }}</h2>
     <div class="container mt-4">
       <div class="row row-cols-3">
         <div class="col mt-3" v-for="post in posts" :key="post.id">
@@ -38,7 +38,11 @@
                 class="page-item"
                 :class="{ active: pageNum == currentPage }"
               >
-                <a @click="getPosts(pageNum)" class="page-link" href="#">
+                <a
+                  @click.prevent="getPosts(pageNum)"
+                  class="page-link"
+                  href="#"
+                >
                   {{ pageNum }}
                 </a>
               </li>
@@ -68,6 +72,7 @@ export default {
   name: "Posts",
   data() {
     return {
+      title: "Our Posts",
       posts: [],
       currentPage: 1,
       lastPage: null,
