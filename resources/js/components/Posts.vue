@@ -3,22 +3,8 @@
     <h2 class="bg-info text-center p-3">{{ title }}</h2>
     <div class="container mt-4">
       <div class="row row-cols-3">
-        <div class="col mt-3" v-for="post in posts" :key="post.id">
-          <div class="card h-100">
-            <!-- <img src="" class="card-img-top" alt="" /> -->
-            <div class="card-body">
-              <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text">
-                {{ truncateText(post.content) }}
-              </p>
-              <router-link
-                class="btn btn-primary"
-                :to="{ name: 'product', params: { slug: post.slug } }"
-              >
-                Read
-              </router-link>
-            </div>
-          </div>
+        <div class="col mt-3" v-for="element in posts" :key="element.id">
+          <Card :post="element" />
         </div>
       </div>
 
@@ -73,8 +59,13 @@
 </template>
 
 <script>
+import Card from "../components/Card.vue";
+
 export default {
   name: "Posts",
+  components: {
+    Card,
+  },
   data() {
     return {
       title: "Our Posts",
@@ -84,11 +75,6 @@ export default {
     };
   },
   methods: {
-    truncateText(text) {
-      if (text.length > 75) {
-        return text.slice(0, 75) + "...";
-      }
-    },
     getPosts(pageNum) {
       axios
         .get("/api/posts", {
