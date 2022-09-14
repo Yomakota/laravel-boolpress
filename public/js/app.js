@@ -2185,7 +2185,17 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\n              " + _vm._s(_vm.truncateText(post.content)) + "\n            ")])])])]);
+    }, [_vm._v("\n              " + _vm._s(_vm.truncateText(post.content)) + "\n            ")]), _vm._v(" "), _c("router-link", {
+      staticClass: "btn btn-primary",
+      attrs: {
+        to: {
+          name: "product",
+          params: {
+            slug: post.slug
+          }
+        }
+      }
+    }, [_vm._v("\n              Read\n            ")])], 1)])]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
@@ -2395,14 +2405,14 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container mt-5"
-  }, [_vm.post ? _c("div", [_c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))])]), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", [_c("ul", {
+  }, [_vm.post ? _c("div", [_c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))])]), _vm._v(" "), _c("div", [_c("ul", {
     staticClass: "list-unstyled"
   }, _vm._l(_vm.post.tags, function (tag) {
     return _c("li", {
       key: tag.id,
       staticClass: "badge rounded-pill bg-success mr-2"
     }, [_c("span", [_vm._v("\n            " + _vm._s(tag.name) + "\n          ")])]);
-  }), 0)]) : _vm._e(), _vm._v(" "), _vm.post.category ? _c("div", [_c("strong", [_vm._v("Category:")]), _vm._v(" " + _vm._s(_vm.post.category.name) + "\n    ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }), 0)]), _vm._v(" "), _vm.post.category ? _c("div", [_c("strong", [_vm._v("Category:")]), _vm._v(" " + _vm._s(_vm.post.category.name) + "\n    ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "mt-3"
   }, [_c("p", [_vm._v(_vm._s(_vm.post.content))])])]) : _vm._e()]);
 };

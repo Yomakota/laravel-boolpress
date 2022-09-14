@@ -11,7 +11,12 @@
               <p class="card-text">
                 {{ truncateText(post.content) }}
               </p>
-              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              <router-link
+                class="btn btn-primary"
+                :to="{ name: 'product', params: { slug: post.slug } }"
+              >
+                Read
+              </router-link>
             </div>
           </div>
         </div>

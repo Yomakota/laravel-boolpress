@@ -4,7 +4,7 @@
       <div>
         <h1>{{ post.title }}</h1>
       </div>
-      <div v-if="post.tags.length > 0">
+      <div>
         <ul class="list-unstyled">
           <li
             v-for="tag in post.tags"
