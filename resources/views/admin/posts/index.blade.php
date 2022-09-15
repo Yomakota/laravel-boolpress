@@ -14,9 +14,10 @@
             <div class="col mt-4">
                 <div class="card h-100">
                     @if ($post->cover)
-                        <img class="card-img-top h-50" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+                        <img class="card-img-top h-50 p-3" src="{{ asset('storage/' . $post->cover) }}"
+                            alt="{{ $post->title }}">
                     @else
-                        <img src="{{ asset('img/laravel-image.png') }}" alt="laravel-logo" class="py-3">
+                        <img src="{{ asset('img/laravel-image.png') }}" alt="laravel-logo" class="p-3">
                     @endif
                     <div class="card-body">
                         <h3 class="card-title h-50"> {{ $post->title }} </h3>
