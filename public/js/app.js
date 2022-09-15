@@ -2086,7 +2086,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("".concat(this.api_url).concat(this.$route.params.slug)).then(function (response) {
-        _this.post = response.data.results;
+        if (response.data.success) {
+          _this.post = response.data.results;
+        } else {
+          _this.$router.push({
+            name: "not-found"
+          });
+        }
       });
     }
   },
@@ -2134,7 +2140,13 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "card h-100"
-  }, [_c("div", {
+  }, [_vm.post.cover ? _c("img", {
+    staticClass: "card-img-top",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("h5", {
     staticClass: "card-title"
@@ -2425,17 +2437,18 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("div", {
     staticClass: "container"
-  }, [_c("h1", [_vm._v("Not Found")])]);
-}];
+  }, [_c("h1", [_vm._v("Not Found")]), _vm._v(" "), _c("div", [_c("span", [_vm._v("Back to our\n      "), _c("router-link", {
+    attrs: {
+      to: {
+        name: "blog"
+      }
+    }
+  }, [_vm._v("Blog")])], 1)])]);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -2458,14 +2471,20 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container mt-5"
-  }, [_vm.post ? _c("div", [_c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))])]), _vm._v(" "), _c("div", [_c("ul", {
+  }, [_vm.post ? _c("div", [_c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))])]), _vm._v(" "), _c("div", [_vm.post.cover ? _c("img", {
+    staticClass: "w-25 my-3",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }) : _vm._e()]), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", [_c("ul", {
     staticClass: "list-unstyled"
   }, _vm._l(_vm.post.tags, function (tag) {
     return _c("li", {
       key: tag.id,
       staticClass: "badge rounded-pill bg-success mr-2"
     }, [_c("span", [_vm._v("\n            " + _vm._s(tag.name) + "\n          ")])]);
-  }), 0)]), _vm._v(" "), _vm.post.category ? _c("div", [_c("strong", [_vm._v("Category:")]), _vm._v(" " + _vm._s(_vm.post.category.name) + "\n    ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }), 0)]) : _vm._e(), _vm._v(" "), _vm.post.category ? _c("div", [_c("strong", [_vm._v("Category:")]), _vm._v(" " + _vm._s(_vm.post.category.name) + "\n    ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "mt-3"
   }, [_c("p", [_vm._v(_vm._s(_vm.post.content))])])]) : _vm._e()]);
 };

@@ -12,6 +12,12 @@ class PostController extends Controller
     {
         $posts = Post::paginate(6);
 
+        foreach ($posts as $post) {
+            if ($post->cover) {
+                $post->cover = asset('storage/' . $post->cover);
+            }
+        }
+
         $data = [
             'success' => true,
             'results' => $posts
@@ -24,6 +30,10 @@ class PostController extends Controller
     {
         //query per colonna slug = $slug con join per colonne tags e category
         $post = Post::where('slug', '=', $slug)->with(['tags', 'category'])->first();
+
+        if ($post->cover) {
+            $post->cover = asset('storage/' . $post->cover);
+        }
 
         if ($post) {
             $data = [

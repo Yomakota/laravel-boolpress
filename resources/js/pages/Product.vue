@@ -5,6 +5,14 @@
         <h1>{{ post.title }}</h1>
       </div>
       <div>
+        <img
+          class="w-25 my-3"
+          v-if="post.cover"
+          :src="post.cover"
+          :alt="post.title"
+        />
+      </div>
+      <div v-if="post.tags.length > 0">
         <ul class="list-unstyled">
           <li
             v-for="tag in post.tags"
@@ -41,7 +49,11 @@ export default {
       axios
         .get(`${this.api_url}${this.$route.params.slug}`)
         .then((response) => {
-          this.post = response.data.results;
+          if (response.data.success) {
+            this.post = response.data.results;
+          } else {
+            this.$router.push({ name: "not-found" });
+          }
         });
     },
   },

@@ -9,6 +9,7 @@ use App\Category;
 use App\Tag;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -59,6 +60,13 @@ class PostController extends Controller
 
         // se non ci sono errori li salvo in form_data
         $form_data = $request->all();
+
+        if (isset($form_data['image'])) {
+            //carico file nella cartella post-covers
+            $img_path = Storage::put('post-covers', $form_data['image']);
+            //e salvo il path che torna
+            $form_data['cover'] = $img_path;
+        }
 
         //creo un nuovo Post
         $new_post = new Post();
@@ -139,6 +147,19 @@ class PostController extends Controller
         //prendo post da aggiornare
         $post_to_update = Post::findOrFail($id);
 
+        //se l'immagine è presente in $form_data
+        if (isset($form_data['image'])) {
+            //cancello la vecchia immagine
+            if ($post_to_update->cover) {
+                Storage::delete($post_to_update->cover);
+            }
+
+            // carico la nuova immagine
+            $img_path = Storage::put('post-covers', $form_data['image']);
+            // e popolo $form-data('cover') com $img_path
+            $form_data['cover'] = $img_path;
+        }
+
         // aggiungo all'array dei data lo slug che non è nel form
         // si genera lo slug solo se diverso da quello vecchio
         if ($form_data['title'] !== $post_to_update->title) {
@@ -169,6 +190,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
+
+        if ($post_to_delete->cover) {
+            Storage::delete($post_to_delete->cover);
+        }
+
         $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
@@ -202,7 +228,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|exists:tags,id'
+            'tags' => 'nullable|exists:tags,id',
+            'image' => 'image|max:1024|nullable'
         ];
     }
 }

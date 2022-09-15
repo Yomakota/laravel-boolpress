@@ -3,6 +3,12 @@
 @section('content')
     <div class="container">
         <h1> {{ $post->title }} </h1>
+
+        @if ($post->cover)
+            <div class="border-top border-dark py-3">
+                <img class="w-25" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+            </div>
+        @endif
         <div class="row post-details">
             <div class="col-12 info">
                 <div class="border-bottom border-top border-dark py-3">
