@@ -6,7 +6,12 @@
       :alt="post.title"
       class="card-img-top"
     />
-    <img v-else src="img/laravel-image.png" alt="laravel-logo" />
+    <img
+      v-else
+      src="img/laravel-image.png"
+      alt="laravel-logo"
+      class="card-img-top"
+    />
     <div class="card-body">
       <h5 class="card-title">{{ post.title }}</h5>
       <p class="card-text">
@@ -37,3 +42,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+}
+</style>

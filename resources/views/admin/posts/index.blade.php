@@ -8,13 +8,13 @@
         </div>
     @endif
 
-    <div class="row row-cols-2">
+    <div class="row row-cols-3">
         @foreach ($posts as $post)
             {{-- Single-post --}}
             <div class="col mt-4">
                 <div class="card h-100">
                     @if ($post->cover)
-                        <img class="card-img-top" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+                        <img class="card-img-top h-50" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
                     @else
                         <img src="{{ asset('img/laravel-image.png') }}" alt="laravel-logo" class="py-3">
                     @endif
