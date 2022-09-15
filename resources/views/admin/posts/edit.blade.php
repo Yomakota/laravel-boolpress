@@ -24,6 +24,8 @@
             @if ($post->cover)
                 <span><strong> Present image: </strong></span>
                 <img class="w-25" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+            @else
+                <img src="{{ asset('img/laravel-image.png') }}" alt="laravel-logo" class="py-3">
             @endif
         </div>
 

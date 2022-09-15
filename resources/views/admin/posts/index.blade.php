@@ -13,7 +13,11 @@
             {{-- Single-post --}}
             <div class="col mt-4">
                 <div class="card h-100">
-                    {{-- <img class="card-img-top" src="" alt=""> --}}
+                    @if ($post->cover)
+                        <img class="card-img-top" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+                    @else
+                        <img src="{{ asset('img/laravel-image.png') }}" alt="laravel-logo" class="py-3">
+                    @endif
                     <div class="card-body">
                         <h3 class="card-title h-50"> {{ $post->title }} </h3>
                         {{-- <p class="card-text">text </p> --}}

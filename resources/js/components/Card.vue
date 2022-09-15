@@ -6,6 +6,7 @@
       :alt="post.title"
       class="card-img-top"
     />
+    <img v-else src="img/laravel-image.png" alt="laravel-logo" />
     <div class="card-body">
       <h5 class="card-title">{{ post.title }}</h5>
       <p class="card-text">

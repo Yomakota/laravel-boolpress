@@ -8,6 +8,8 @@
             <div class="border-top border-dark py-3">
                 <img class="w-25" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
             </div>
+        @else
+            <img src="{{ asset('img/laravel-image.png') }}" alt="laravel-logo" class="py-3">
         @endif
         <div class="row post-details">
             <div class="col-12 info">

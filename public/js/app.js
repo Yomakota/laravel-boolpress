@@ -2146,7 +2146,12 @@ var render = function render() {
       src: _vm.post.cover,
       alt: _vm.post.title
     }
-  }) : _vm._e(), _vm._v(" "), _c("div", {
+  }) : _c("img", {
+    attrs: {
+      src: "img/laravel-image.png",
+      alt: "laravel-logo"
+    }
+  }), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("h5", {
     staticClass: "card-title"

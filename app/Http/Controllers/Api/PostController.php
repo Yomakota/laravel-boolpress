@@ -33,6 +33,8 @@ class PostController extends Controller
 
         if ($post->cover) {
             $post->cover = asset('storage/' . $post->cover);
+        } else {
+            $post->cover = asset('img/laravel-image.png');
         }
 
         if ($post) {
