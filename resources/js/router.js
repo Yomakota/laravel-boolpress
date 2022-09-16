@@ -8,6 +8,7 @@ import Aboutpage from './pages/AboutPage.vue';
 import BlogPage from './pages/BlogPage.vue';
 import PageNotFound from './pages/PageNotFound.vue';
 import Product from './pages/Product.vue';
+import ContactPage from './pages/ContactPage.vue';
 
 const router = new VueRouter({
     mode: 'history',
@@ -31,6 +32,11 @@ const router = new VueRouter({
             path: '/blog/:slug',
             name: 'product',
             component: Product
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: ContactPage
         },
         {
             path: '/*',

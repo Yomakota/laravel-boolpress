@@ -10,6 +10,8 @@ use App\Tag;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewPostAdminEmail;
 
 class PostController extends Controller
 {
@@ -81,6 +83,8 @@ class PostController extends Controller
             $new_post->tags()->sync($form_data['tags']);
         }
 
+        //e posso inviare nel caso l'email all'amministratore
+        Mail::to('admin@boolpress.it')->send(new NewPostAdminEmail($new_post));
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
 
